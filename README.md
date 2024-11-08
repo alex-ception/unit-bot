@@ -25,6 +25,7 @@
    1. click on your profile
    2. click on #serverNumber
    3. open capitole buffs interface
+   4. Scroll down to the bottom (not needed in the future)
 
 ## Start bot
 

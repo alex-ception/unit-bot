@@ -78,7 +78,6 @@ def isPlayerBanned(playerName: str):
       isBanned=True
       print("BANNED !")
     else:
-      isBanned=False
       print("Not banned")
 
   return isBanned
@@ -96,11 +95,11 @@ def CheckIfPlayerCanEnterInBuffList():
     isBanned = isPlayerBanned(playerName)
 
     if isBanned:
-      DenyPlayerInWaitingList()
-      print("Click deny")
+      print("Gonna click on deny")
+      return DenyPlayerInWaitingList()
     else:
-      AcceptPlayerInWaitingList()
-      print("Click accept")
+      print("Gonna click on accept")
+      return AcceptPlayerInWaitingList()
 
 #-------------------------------------------------------------
 
@@ -126,11 +125,31 @@ def DenyPlayerInWaitingList():
       region=(LIST_BUFF_TOP_LEFT_X, LIST_BUFF_TOP_LEFT_Y, LIST_BUFF_BOTTOM_RIGHT_X - LIST_BUFF_TOP_LEFT_X, LIST_BUFF_BOTTOM_RIGHT_Y - LIST_BUFF_TOP_LEFT_Y), 
       grayscale=True, 
       confidence=0.8)
-    
+        
     pg.click(denyEntryButton[0], denyEntryButton[1])
+
+    time.sleep(1)
+
+    ConfirmDenyPlayerInWaitingList()
 
   except pg.ImageNotFoundException:
     print('Deny entry image not found')
+
+#-------------------------------------------------------------
+
+def ConfirmDenyPlayerInWaitingList():
+  try:
+    confirmDenyPlayerInWaitingListButton = pg.locateCenterOnScreen(
+      "./images/confirm-deny-entry-button.png",
+      grayscale=True, 
+      confidence=0.6)
+    
+    pg.click(confirmDenyPlayerInWaitingListButton[0], confirmDenyPlayerInWaitingListButton[1])
+
+    time.sleep(1)
+    
+  except pg.ImageNotFoundException:
+    print('Confirm Deny player from buff image not found')
 
 #-------------------------------------------------------------
 
@@ -183,7 +202,6 @@ def ConfirmEjectPlayerFromBuff():
     pg.click(confirmEjectPlayerFromBuffButton[0], confirmEjectPlayerFromBuffButton[1])
 
     time.sleep(1)
-    
 
   except pg.ImageNotFoundException:
     print('Confirm Eject player from buff image not found')

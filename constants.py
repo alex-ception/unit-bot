@@ -1,6 +1,6 @@
 
 # BANNED PLAYER / ALLIANCE NAME
-BANNED_PLAYERS_AND_ALLIANCES = ["BANnoob1", 'BANShena']
+BANNED_PLAYERS_AND_ALLIANCES = ["BANnoob1", "BANnoob2", 'BANShena']
 
 # List buffs coords
 ####################################################
@@ -20,10 +20,10 @@ INTERIOR_BUFF_CENTER_X = 1102
 INTERIOR_BUFF_CENTER_Y = 801
 
 #---------------------------------------------------
-LIST_BUFF_TOP_LEFT_X = 785 # After profile picture
-LIST_BUFF_TOP_LEFT_Y = 227
-LIST_BUFF_BOTTOM_RIGHT_X = 1180
-LIST_BUFF_BOTTOM_RIGHT_Y = 318
+LIST_BUFF_TOP_LEFT_X = 803 # After profile picture
+LIST_BUFF_TOP_LEFT_Y = 226
+LIST_BUFF_BOTTOM_RIGHT_X = 1190
+LIST_BUFF_BOTTOM_RIGHT_Y = 291
 
 # To get player name text
 LIST_BUFF_CENTER_X = 1031
