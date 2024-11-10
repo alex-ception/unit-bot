@@ -1,12 +1,24 @@
 import pyautogui as pg
-import time
 import pytesseract
-from typing import Literal
-from constants import *
+import time
 import unidecode
 import json
+import random
+from constants import *
+from typing import Literal
 
 Secretary = Literal["strategy", "security", "development", "science", "interior"]
+
+#-------------------------------------------------------------
+
+def GetRandomClickInterval():
+    with open('./config.json') as config_file:
+      jsonConfig = json.load(config_file)
+
+      minInterval = int(jsonConfig['click_interval_in_second']['min'])
+      maxInterval = int(jsonConfig['click_interval_in_second']['max'])
+
+      return random.uniform(minInterval, maxInterval)
 
 #-------------------------------------------------------------
 
@@ -25,7 +37,7 @@ def CloseModal():
     closeModal = pg.locateCenterOnScreen("./images/close-modal-button.png", grayscale=True, confidence=0.8)
     pg.click(closeModal[0], closeModal[1])
 
-    time.sleep(1)
+    time.sleep(GetRandomClickInterval())
   except pg.ImageNotFoundException: 
     print('Close modal button not found')
 
@@ -36,7 +48,7 @@ def OpenWaitingList():
     waitingList = pg.locateCenterOnScreen("./images/waiting-list-button.png", grayscale=True, confidence=0.8)
     pg.click(waitingList[0], waitingList[1])
 
-    time.sleep(1)
+    time.sleep(GetRandomClickInterval())
   except pg.ImageNotFoundException: 
     print('Waiting list button not found')
 
@@ -46,12 +58,12 @@ def OpenSecretary(x, y):
   try:
     # Scroll down to see all secretaries
     pg.scroll(-200)
-    time.sleep(1)
+    time.sleep(GetRandomClickInterval())
 
     pg.moveTo(x, y)
     pg.click()
 
-    time.sleep(1)
+    time.sleep(GetRandomClickInterval())
   except: 
     print('Not able to open the secretary modal')
 
@@ -75,8 +87,17 @@ def isPlayerBanned(playerNameWithAlliance: str):
   with open('./config.json') as config_file:
     jsonConfig = json.load(config_file)
 
-    playerAlliance = playerNameWithAlliance[1:4]
-    playerName = playerNameWithAlliance[5:]
+    playerNameWithoutSpaces = playerNameWithAlliance.strip()
+
+    bracketIndex = playerNameWithoutSpaces.find("[")
+
+    print("bracketIndex=", bracketIndex)
+
+    playerAlliance = playerNameWithoutSpaces[bracketIndex+1 : bracketIndex+4]
+    playerName = playerNameWithoutSpaces[bracketIndex+6 : ]
+
+    print("playerAlliance=", playerAlliance)
+    print("playerName=", playerName)
 
     isBanned = False
 
@@ -106,10 +127,14 @@ def CheckIfPlayerCanEnterInBuffList():
 
     if isBanned:
       print("Gonna click on deny")
-      return DenyPlayerInWaitingList()
+      DenyPlayerInWaitingList()
     else:
       print("Gonna click on accept")
-      return AcceptPlayerInWaitingList()
+      AcceptPlayerInWaitingList()
+
+    time.sleep(GetRandomClickInterval())
+    
+    CheckIfPlayerCanEnterInBuffList()
 
 #-------------------------------------------------------------
 
@@ -138,7 +163,7 @@ def DenyPlayerInWaitingList():
         
     pg.click(denyEntryButton[0], denyEntryButton[1])
 
-    time.sleep(1)
+    time.sleep(GetRandomClickInterval())
 
     ConfirmDenyPlayerInWaitingList()
 
@@ -156,7 +181,7 @@ def ConfirmDenyPlayerInWaitingList():
     
     pg.click(confirmDenyPlayerInWaitingListButton[0], confirmDenyPlayerInWaitingListButton[1])
 
-    time.sleep(1)
+    time.sleep(GetRandomClickInterval())
     
   except pg.ImageNotFoundException:
     print('Confirm Deny player from buff image not found')
@@ -182,7 +207,7 @@ def CheckTimeInTheBuff():
       totalMinutes = hours * 60 + minutes
       limitInMinutes = int(jsonConfig['max_time_player_has_buff_in_minute'])
 
-      if totalMinutes > limitInMinutes:
+      if totalMinutes >= limitInMinutes:
         EjectPlayerFromBuff()
 
   except:
@@ -199,7 +224,7 @@ def EjectPlayerFromBuff():
     
     pg.click(ejectPlayerFromBuffButton[0], ejectPlayerFromBuffButton[1])
 
-    time.sleep(1)
+    time.sleep(GetRandomClickInterval())
 
     ConfirmEjectPlayerFromBuff()
 
@@ -217,7 +242,7 @@ def ConfirmEjectPlayerFromBuff():
     
     pg.click(confirmEjectPlayerFromBuffButton[0], confirmEjectPlayerFromBuffButton[1])
 
-    time.sleep(1)
+    time.sleep(GetRandomClickInterval())
 
   except pg.ImageNotFoundException:
     print('Confirm Eject player from buff image not found')

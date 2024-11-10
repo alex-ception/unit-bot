@@ -1,6 +1,6 @@
 {
-  "blacklist_players": ["BANnoob1", "BANShena"],
   "blacklist_alliances": [],
+  "blacklist_players": ["BANnoob1", "BANShena"],
   "max_time_player_has_buff_in_minute": 10,
   "click_interval_in_second": { "min": 1, "max": 2 }
 }
