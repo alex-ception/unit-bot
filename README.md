@@ -18,8 +18,8 @@
 
 ## Before Starting the bot
 
-1. (if you want to ban some player/alliance) You can give a nickname to some players as you want in Last war. Do it before set player's name in the blacklist.
-2. (if you want to ban some player/alliance) You can set player name in the blacklist array in the constants.py file (BANNED_PLAYERS_AND_ALLIANCES)
+1. (if you want to ban some alliance) You can set the alliance name in the blacklist array in the **config.json** file (ex: CyS)
+2. (if you want to ban some player) You can give a nickname to some players as you want in Last war. Do it before set player's name in the blacklist (**in config.json**).
 3. Be the first lady
 4. In game:
    1. click on your profile

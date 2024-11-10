@@ -80,7 +80,7 @@ def isPlayerBanned(playerNameWithAlliance: str):
 
     isBanned = False
 
-    for alliance in jsonConfig['blacklist_alliance']:
+    for alliance in jsonConfig['blacklist_alliances']:
       if alliance.lower() in playerAlliance.lower():
         isBanned=True
 
