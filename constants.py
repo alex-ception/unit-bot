@@ -1,7 +1,3 @@
-
-# BANNED PLAYER / ALLIANCE NAME
-BANNED_PLAYERS_AND_ALLIANCES = ["BANnoob1", "BANnoob2", 'BANShena']
-
 # List buffs coords
 ####################################################
 STRATEGY_BUFF_CENTER_X = 939

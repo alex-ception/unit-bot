@@ -4,6 +4,7 @@ import pytesseract
 from typing import Literal
 from constants import *
 import unidecode
+import json
 
 Secretary = Literal["strategy", "security", "development", "science", "interior"]
 
@@ -70,17 +71,24 @@ def GetFirstPlayerNameInTheList():
     
 #-------------------------------------------------------------
 
-def isPlayerBanned(playerName: str):
-  isBanned = False
+def isPlayerBanned(playerNameWithAlliance: str):
+  with open('./config.json') as config_file:
+    jsonConfig = json.load(config_file)
 
-  for name in BANNED_PLAYERS_AND_ALLIANCES:
-    if name.lower() in playerName.lower():
-      isBanned=True
-      print("BANNED !")
-    else:
-      print("Not banned")
+    playerAlliance = playerNameWithAlliance[1:4]
+    playerName = playerNameWithAlliance[5:]
 
-  return isBanned
+    isBanned = False
+
+    for alliance in jsonConfig['blacklist_alliance']:
+      if alliance.lower() in playerAlliance.lower():
+        isBanned=True
+
+    for player in jsonConfig['blacklist_players']:
+      if player.lower() in playerName.lower():
+        isBanned=True
+        
+    return isBanned
 
 #-------------------------------------------------------------
 
@@ -93,6 +101,8 @@ def CheckIfPlayerCanEnterInBuffList():
     return
   else:
     isBanned = isPlayerBanned(playerName)
+
+    print("isPlayerBanned = ",isBanned)
 
     if isBanned:
       print("Gonna click on deny")
@@ -155,19 +165,25 @@ def ConfirmDenyPlayerInWaitingList():
 
 def CheckTimeInTheBuff():
   try:
-    timeInTheBuffImage = pg.screenshot(region=(TIME_IN_THE_BUFF_TOP_LEFT_X, TIME_IN_THE_BUFF_TOP_LEFT_Y, TIME_IN_THE_BUFF_BOTTOM_RIGHT_X - TIME_IN_THE_BUFF_TOP_LEFT_X, TIME_IN_THE_BUFF_BOTTOM_RIGHT_Y - TIME_IN_THE_BUFF_TOP_LEFT_Y))
+    with open('./config.json') as config_file:
+      jsonConfig = json.load(config_file)
 
-    timeInTheBuffFullSentence = pytesseract.image_to_string(timeInTheBuffImage)
+      timeInTheBuffImage = pg.screenshot(region=(TIME_IN_THE_BUFF_TOP_LEFT_X, TIME_IN_THE_BUFF_TOP_LEFT_Y, TIME_IN_THE_BUFF_BOTTOM_RIGHT_X - TIME_IN_THE_BUFF_TOP_LEFT_X, TIME_IN_THE_BUFF_BOTTOM_RIGHT_Y - TIME_IN_THE_BUFF_TOP_LEFT_Y))
 
-    timeInTheBuffLastElement = timeInTheBuffFullSentence.split(' ')[3].replace(" ", "")
+      timeInTheBuffFullSentence = pytesseract.image_to_string(timeInTheBuffImage)
 
-    splitLastElement = list(timeInTheBuffLastElement)
+      timeInTheBuffLastElement = timeInTheBuffFullSentence.split(' ')[3].replace(" ", "")
 
-    hours = splitLastElement[6] + splitLastElement[7]
-    minutes = splitLastElement[9] + splitLastElement[10]
+      splitLastElement = list(timeInTheBuffLastElement)
 
-    if int(hours[0]) > 0 or int(hours[1]) > 0 or int(minutes[0]) > 0:
-      EjectPlayerFromBuff()
+      hours = int(splitLastElement[6] + splitLastElement[7])
+      minutes = int(splitLastElement[9] + splitLastElement[10])
+
+      totalMinutes = hours * 60 + minutes
+      limitInMinutes = int(jsonConfig['max_time_player_has_buff_in_minute'])
+
+      if totalMinutes > limitInMinutes:
+        EjectPlayerFromBuff()
 
   except:
     print('Not able to get time in the buff')
