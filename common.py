@@ -91,13 +91,9 @@ def isPlayerBanned(playerNameWithAlliance: str):
 
     bracketIndex = playerNameWithoutSpaces.find("[")
 
-    print("bracketIndex=", bracketIndex)
-
+    # There's sometimes an error here because pytesseract detect wrong the real name or alliance name
     playerAlliance = playerNameWithoutSpaces[bracketIndex+1 : bracketIndex+4]
     playerName = playerNameWithoutSpaces[bracketIndex+6 : ]
-
-    print("playerAlliance=", playerAlliance)
-    print("playerName=", playerName)
 
     isBanned = False
 
