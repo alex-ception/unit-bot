@@ -14,7 +14,6 @@
    2. **pip install pillow**
    3. **pip install opencv-python**
    4. **pip install pytesseract** More complicated so check this video (https://www.youtube.com/watch?v=HNCypVfeTdw)
-   5. **pip install Unidecode**
 
 ## Before Starting the bot
 

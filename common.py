@@ -1,7 +1,6 @@
 import pyautogui as pg
 import pytesseract
 import time
-import unidecode
 import json
 import random
 from constants import *
@@ -75,9 +74,7 @@ def GetFirstPlayerNameInTheList():
 
     playerName = pytesseract.image_to_string(playerNameImage)
 
-    playerNameWithoutAccent = unidecode.unidecode(playerName)
-
-    return playerNameWithoutAccent
+    return playerName
   except: 
     print('Not able to get player name')
     
