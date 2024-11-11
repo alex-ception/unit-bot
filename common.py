@@ -55,10 +55,6 @@ def OpenWaitingList():
 
 def OpenSecretary(x, y):
   try:
-    # Scroll down to see all secretaries
-    pg.scroll(-200)
-    time.sleep(GetRandomClickInterval())
-
     pg.moveTo(x, y)
     pg.click()
 

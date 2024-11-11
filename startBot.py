@@ -7,9 +7,13 @@ from buffs.development.checkDevelopmentBuff import CheckDevelopmentBuff
 from buffs.science.checkScienceBuff import CheckScienceBuff
 from buffs.interior.checkInteriorBuff import CheckInteriorBuff
 
-
 # To have time to change the window
 time.sleep(2)
+
+# Scroll down to see all secretaries
+pg.click(733, 128) # Top left on the window
+pg.scroll(-400)
+time.sleep(1)
 
 # Start script
 while True:
