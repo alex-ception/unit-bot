@@ -10,10 +10,10 @@
 
 1. Install the programming language [Python](https://www.python.org/downloads/),
 2. Open the terminal command in administrator mode and write:
-   1. **pip install pyautogui**
-   2. **pip install pillow**
-   3. **pip install opencv-python**
-   4. **pip install pytesseract** More complicated so check this video (https://www.youtube.com/watch?v=HNCypVfeTdw)
+   1. pip install pyautogui
+   2. pip install pillow
+   3. pip install opencv-python
+   4. now install tesseract/pytesseract. More complicated so check this video (https://www.youtube.com/watch?v=HNCypVfeTdw)
 
 ## Before Starting the bot
 
