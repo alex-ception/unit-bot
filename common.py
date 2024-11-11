@@ -3,6 +3,7 @@ import pytesseract
 import time
 import json
 import random
+from datetime import datetime
 from constants import *
 from typing import Literal
 
@@ -117,6 +118,7 @@ def CheckIfPlayerCanEnterInBuffList():
     if isBanned:
       print("Gonna click on deny")
       DenyPlayerInWaitingList()
+      WriteLogInBannedPlayersFile(playerName)
     else:
       print("Gonna click on accept")
       AcceptPlayerInWaitingList()
@@ -235,3 +237,13 @@ def ConfirmEjectPlayerFromBuff():
 
   except pg.ImageNotFoundException:
     print('Confirm Eject player from buff image not found')
+
+#-------------------------------------------------------------
+
+def WriteLogInBannedPlayersFile(playerName: str):
+  date = str(datetime.now())
+
+  messageToWrite = " ".join([date, playerName, '\n'])
+
+  with open('./activityLogs/bannedPlayers.txt', 'a') as f:
+    f.write(messageToWrite)
