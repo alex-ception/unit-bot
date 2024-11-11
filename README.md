@@ -24,10 +24,10 @@
    1. click on your profile
    2. click on #serverNumber
    3. open capitole buffs interface
-   4. Scroll down to the bottom (not needed in the future)
 
 ## Start bot
 
 1. Don't do anything while script is running.
 2. To stop the script, set your mouse on the corner of the screen (top right for example) for the **"fail-safe"**.
-3. Start the script: **python startBot.py**
+3. Open new terminal with administrator rights
+4. Start the script: **python startBot.py**
