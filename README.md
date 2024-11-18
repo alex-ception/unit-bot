@@ -31,3 +31,12 @@
 2. To stop the script, set your mouse on the corner of the screen (top right for example) for the **"fail-safe"**.
 3. Open new terminal with administrator rights
 4. Start the script: **python startBot.py**
+
+## How to update the bot ?
+
+There's many ways to do that:
+
+- Either by me, so you just have to update the main branch: **git pull**
+- Or by youself but I promise it's not so tricky :D
+  - Just **make new screenshots** for update images in the images folder (Last war can update UI buttons)
+  - Your screen resolution changed so the script can't click on the right regions so it's faster to **update pixel variables** by yourself directly (remove loop in startBot.py and just call GetPosition(). Then start the script with **Python startBot.py** and set your mouse wherever your want, you gonna have the X and Y positions)
