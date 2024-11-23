@@ -3,7 +3,7 @@
 ## Requirements
 
 1. Set display resolution of emulator (MEmu for example) to: **1280x720** (tablet)
-2. Set the language game to **French** (it will be change in the futurue)
+2. Set the language game to **French** (because screenshots are in the french language)
 3. Works perfectly with Windows11 **BUT** if you use MacOS or Linux, the installation will be different, watch out
 
 ## Installations
@@ -40,3 +40,7 @@ There's many ways to do that:
 - Or by youself but I promise it's not so tricky :D
   - Just **make new screenshots** for update images in the images folder (Last war can update UI buttons)
   - Your screen resolution changed so the script can't click on the right regions so it's faster to **update pixel variables** by yourself directly (remove loop in startBot.py and just call GetPosition(). Then start the script with **Python startBot.py** and set your mouse wherever your want, you gonna have the X and Y positions)
+
+## Is it work perfectly ?
+
+No, the bot can make mistakes because it uses OCR techniques and these techniques are not 100% reliable (especially tesseract).

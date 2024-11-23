@@ -83,22 +83,32 @@ def isPlayerBanned(playerNameWithAlliance: str):
 
     playerNameWithoutSpaces = playerNameWithAlliance.strip()
 
-    bracketIndex = playerNameWithoutSpaces.find("[")
-
-    # There's sometimes an error here because pytesseract detect wrong the real name or alliance name
-    playerAlliance = playerNameWithoutSpaces[bracketIndex+1 : bracketIndex+4]
-    playerName = playerNameWithoutSpaces[bracketIndex+6 : ]
+    bracketIndex = playerNameWithoutSpaces.find("[") # Example: [1Pr] (the first braket)
 
     isBanned = False
 
-    for alliance in jsonConfig['blacklist_alliances']:
-      if alliance.lower() in playerAlliance.lower():
-        isBanned=True
+    if bracketIndex != -1:
+      # PLAYER HAVE AN ALLIANCE
 
-    for player in jsonConfig['blacklist_players']:
-      if player.lower() in playerName.lower():
-        isBanned=True
-        
+      playerAlliance = playerNameWithoutSpaces[bracketIndex+1 : bracketIndex+4]
+      playerName = playerNameWithoutSpaces[bracketIndex+6 : ]
+
+
+      for alliance in jsonConfig['blacklist_alliances']:
+        if alliance.lower() in playerAlliance.lower():
+          isBanned=True
+
+      for player in jsonConfig['blacklist_players']:
+        if player.lower() in playerName.lower():
+          isBanned=True
+          
+    else:
+      # PLAYER DON'T HAVE AN ALLIANCE
+
+      for player in jsonConfig['blacklist_players']:
+        if player.lower() in playerNameWithoutSpaces.lower():
+          isBanned=True
+
     return isBanned
 
 #-------------------------------------------------------------
@@ -106,14 +116,12 @@ def isPlayerBanned(playerNameWithAlliance: str):
 def CheckIfPlayerCanEnterInBuffList():
   playerName = GetFirstPlayerNameInTheList()
 
-  print(playerName)
-
   if IsBlank(playerName):
     return
   else:
     isBanned = isPlayerBanned(playerName)
 
-    print("isPlayerBanned = ",isBanned)
+    print("isPlayerBanned = ",isBanned + "( " + playerName + " )")
 
     if isBanned:
       print("Gonna click on deny")
