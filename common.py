@@ -87,7 +87,14 @@ def isPlayerBanned(playerNameWithAlliance: str):
 
     isBanned = False
 
-    if bracketIndex != -1:
+    if bracketIndex == -1:
+      # PLAYER DON'T HAVE AN ALLIANCE
+
+      for player in jsonConfig['blacklist_players']:
+        if player.lower() in playerNameWithoutSpaces.lower():
+          isBanned=True
+          
+    else:
       # PLAYER HAVE AN ALLIANCE
 
       playerAlliance = playerNameWithoutSpaces[bracketIndex+1 : bracketIndex+4]
@@ -101,14 +108,7 @@ def isPlayerBanned(playerNameWithAlliance: str):
       for player in jsonConfig['blacklist_players']:
         if player.lower() in playerName.lower():
           isBanned=True
-          
-    else:
-      # PLAYER DON'T HAVE AN ALLIANCE
-
-      for player in jsonConfig['blacklist_players']:
-        if player.lower() in playerNameWithoutSpaces.lower():
-          isBanned=True
-
+      
     return isBanned
 
 #-------------------------------------------------------------
@@ -116,12 +116,13 @@ def isPlayerBanned(playerNameWithAlliance: str):
 def CheckIfPlayerCanEnterInBuffList():
   playerName = GetFirstPlayerNameInTheList()
 
+  print("playerName=", playerName)
+
   if IsBlank(playerName):
     return
   else:
     isBanned = isPlayerBanned(playerName)
 
-    print("isPlayerBanned = ",isBanned + "( " + playerName + " )")
 
     if isBanned:
       print("Gonna click on deny")
