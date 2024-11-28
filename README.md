@@ -13,7 +13,8 @@
    1. pip install pyautogui
    2. pip install pillow
    3. pip install opencv-python
-   4. now install tesseract/pytesseract. More complicated so check this video (https://www.youtube.com/watch?v=HNCypVfeTdw)
+   4. pip install pytesseract
+   5. now install **tesseract** on windows. More complicated so check this video (https://www.youtube.com/watch?v=HNCypVfeTdw)
 
 ## Before Starting the bot
 
@@ -39,7 +40,7 @@ There's many ways to do that:
 - Either by me, so you just have to update the main branch: **git pull**
 - Or by youself but I promise it's not so tricky :D
   - Just **make new screenshots** for update images in the images folder (Last war can update UI buttons)
-  - Your screen resolution changed so the script can't click on the right regions so it's faster to **update pixel variables** by yourself directly (remove loop in startBot.py and just call GetPosition(). Then start the script with **Python startBot.py** and set your mouse wherever your want, you gonna have the X and Y positions)
+  - Your screen resolution changed so the script can't click on the right regions so it's faster to **update pixel variables** by yourself directly (remove loop in startBot.py and just call GetPosition(). Then start the script with **python startBot.py** and set your mouse wherever your want, you gonna have the X and Y positions)
 
 ## Is it work perfectly ?
 

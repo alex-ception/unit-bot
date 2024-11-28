@@ -1,5 +1,9 @@
 # List buffs coords
-####################################################
+
+PROFILE_PICTURE_X = 717 
+PROFILE_PICTURE_Y = 72 
+
+#---------------------------------------------------
 STRATEGY_BUFF_CENTER_X = 939
 STRATEGY_BUFF_CENTER_Y = 561
 
@@ -16,19 +20,8 @@ INTERIOR_BUFF_CENTER_X = 1102
 INTERIOR_BUFF_CENTER_Y = 790
 
 #---------------------------------------------------
-LIST_BUFF_TOP_LEFT_X = 803 # After profile picture
-LIST_BUFF_TOP_LEFT_Y = 226
-LIST_BUFF_BOTTOM_RIGHT_X = 1190
-LIST_BUFF_BOTTOM_RIGHT_Y = 291
-
-# To get player name text
-LIST_BUFF_CENTER_X = 1031
-LIST_BUFF_CENTER_Y = 258
-
-#---------------------------------------------------
 TIME_IN_THE_BUFF_TOP_LEFT_X = 702
 TIME_IN_THE_BUFF_TOP_LEFT_Y = 316
 
 TIME_IN_THE_BUFF_BOTTOM_RIGHT_X = 1171
 TIME_IN_THE_BUFF_BOTTOM_RIGHT_Y = 350
-####################################################

@@ -1,28 +1,18 @@
 import time
 from common import *
 from constants import *
-from buffs.strategy.checkStrategyBuff import CheckStrategyBuff
-from buffs.security.checkSecurityBuff import CheckSecurityBuff
-from buffs.development.checkDevelopmentBuff import CheckDevelopmentBuff
-from buffs.science.checkScienceBuff import CheckScienceBuff
-from buffs.interior.checkInteriorBuff import CheckInteriorBuff
+from buffs.checkBuffs import CheckBuffs
 
-# To have time to change the window
-time.sleep(2)
 
-# Scroll down to see all secretaries
-pg.click(733, 128) # Top left on the window
-pg.scroll(-400)
-time.sleep(1)
+# To have time to change window from VSCode to emulator
+time.sleep(GetRandomClickInterval())
 
-# Start script
-while True:
-  CheckStrategyBuff()
+# Don't call this function "CloseBuyKimPack" if you already bought Kim
+# CloseBuyKimPack()
 
-  CheckSecurityBuff()
+# GoToProfile()
 
-  CheckDevelopmentBuff()
+# OpenCapitol()
 
-  CheckScienceBuff()
-
-  CheckInteriorBuff()
+CheckBuffs()
+  

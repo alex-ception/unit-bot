@@ -11,46 +11,32 @@ Secretary = Literal["strategy", "security", "development", "science", "interior"
 
 #-------------------------------------------------------------
 
-def GetRandomClickInterval():
-    with open('./config.json') as config_file:
-      jsonConfig = json.load(config_file)
-
-      minInterval = int(jsonConfig['click_interval_in_second']['min'])
-      maxInterval = int(jsonConfig['click_interval_in_second']['max'])
-
-      return random.uniform(minInterval, maxInterval)
-
-#-------------------------------------------------------------
-
-def IsBlank (myString):
-    return not (myString and myString.strip())
-
-#-------------------------------------------------------------
-
-def GetPosition():
-  print(pg.position())
-
-#-------------------------------------------------------------
-
-def CloseModal():
+def CloseBuyKimPack():
   try:
-    closeModal = pg.locateCenterOnScreen("./images/close-modal-button.png", grayscale=True, confidence=0.8)
-    pg.click(closeModal[0], closeModal[1])
+    crossIcon = pg.locateCenterOnScreen("./images/close-buy-kim-pack.png", grayscale=True, confidence=0.6)
+    pg.click(crossIcon[0], crossIcon[1])
 
     time.sleep(GetRandomClickInterval())
-  except pg.ImageNotFoundException: 
-    print('Close modal button not found')
+  except pg.ImageNotFoundException:
+    print('Close kim pack (cross icon) not found')
 
 #-------------------------------------------------------------
 
-def OpenWaitingList():
+def GoToProfile():
+  pg.click(PROFILE_PICTURE_X, PROFILE_PICTURE_Y)
+
+  time.sleep(GetRandomClickInterval())
+
+#-------------------------------------------------------------
+
+def OpenCapitol():
   try:
-    waitingList = pg.locateCenterOnScreen("./images/waiting-list-button.png", grayscale=True, confidence=0.8)
-    pg.click(waitingList[0], waitingList[1])
+    capitolIcon = pg.locateCenterOnScreen("./images/capitol-icon.png", grayscale=True, confidence=0.7)
+    pg.click(capitolIcon[0], capitolIcon[1])
 
     time.sleep(GetRandomClickInterval())
-  except pg.ImageNotFoundException: 
-    print('Waiting list button not found')
+  except pg.ImageNotFoundException:
+    print('Open capitol image not found')
 
 #-------------------------------------------------------------
 
@@ -65,16 +51,72 @@ def OpenSecretary(x, y):
 
 #-------------------------------------------------------------
 
+def OpenWaitingList():
+  try:
+    waitingList = pg.locateCenterOnScreen("./images/waiting-list-button.png", grayscale=True, confidence=0.8)
+    pg.click(waitingList[0], waitingList[1])
+
+    time.sleep(GetRandomClickInterval())
+  except pg.ImageNotFoundException: 
+    print('Waiting list button not found')
+
+#-------------------------------------------------------------
+
+def GetCoordinatesOfTheFirstPlayerInWaitingList():
+  try:
+    coords = pg.locateCenterOnScreen(
+      "./images/officer-request-title.png",  
+      grayscale=True, 
+      confidence=0.8)
+    
+    TOP_LEFT_X = int(coords[0] - 150)
+    TOP_LEFT_Y = int(coords[1] + 100)
+    BOTTOM_RIGHT_X = int(coords[0] + 230)
+    BOTTOM_RIGHT_Y = int(coords[1] + 160)
+
+    return [TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X, BOTTOM_RIGHT_Y]
+
+  except pg.ImageNotFoundException:
+    print('Officer request image (main title) not found')
+
+#-------------------------------------------------------------
+
 def GetFirstPlayerNameInTheList():
   try:
-    playerNameImage = pg.screenshot(region=(LIST_BUFF_TOP_LEFT_X, LIST_BUFF_TOP_LEFT_Y, LIST_BUFF_CENTER_X - LIST_BUFF_TOP_LEFT_X, LIST_BUFF_CENTER_Y - LIST_BUFF_TOP_LEFT_Y))
+    TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X , BOTTOM_RIGHT_Y = GetCoordinatesOfTheFirstPlayerInWaitingList()
+
+    playerNameImage = pg.screenshot(region=(TOP_LEFT_X, TOP_LEFT_Y, (BOTTOM_RIGHT_X - 127) - TOP_LEFT_X, (BOTTOM_RIGHT_Y - 27) - TOP_LEFT_Y))
 
     playerName = pytesseract.image_to_string(playerNameImage)
 
     return playerName
   except: 
     print('Not able to get player name')
+
+#-------------------------------------------------------------
+
+def CheckIfPlayerCanEnterInBuffList(previousPlayerName = None):
+  playerName = GetFirstPlayerNameInTheList()
+
+  print("playerName=", playerName)
+
+  if (IsBlank(playerName) or previousPlayerName == playerName):
+    return
+  else:
+    isBanned = isPlayerBanned(playerName)
+
+    if isBanned:
+      print("Gonna click on deny")
+      DenyPlayerInWaitingList()
+      WriteLogInBannedPlayersFile(playerName)
+    else:
+      print("Gonna click on accept")
+      AcceptPlayerInWaitingList()
+
+    time.sleep(GetRandomClickInterval())
     
+    CheckIfPlayerCanEnterInBuffList(playerName)
+
 #-------------------------------------------------------------
 
 def isPlayerBanned(playerNameWithAlliance: str):
@@ -113,36 +155,13 @@ def isPlayerBanned(playerNameWithAlliance: str):
 
 #-------------------------------------------------------------
 
-def CheckIfPlayerCanEnterInBuffList():
-  playerName = GetFirstPlayerNameInTheList()
-
-  print("playerName=", playerName)
-
-  if IsBlank(playerName):
-    return
-  else:
-    isBanned = isPlayerBanned(playerName)
-
-
-    if isBanned:
-      print("Gonna click on deny")
-      DenyPlayerInWaitingList()
-      WriteLogInBannedPlayersFile(playerName)
-    else:
-      print("Gonna click on accept")
-      AcceptPlayerInWaitingList()
-
-    time.sleep(GetRandomClickInterval())
-    
-    CheckIfPlayerCanEnterInBuffList()
-
-#-------------------------------------------------------------
-
 def AcceptPlayerInWaitingList():
   try:
+    TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X , BOTTOM_RIGHT_Y = GetCoordinatesOfTheFirstPlayerInWaitingList()
+
     accepteEntryButton = pg.locateCenterOnScreen(
       "./images/accept-entry-button.png", 
-      region=(LIST_BUFF_TOP_LEFT_X, LIST_BUFF_TOP_LEFT_Y, LIST_BUFF_BOTTOM_RIGHT_X - LIST_BUFF_TOP_LEFT_X, LIST_BUFF_BOTTOM_RIGHT_Y - LIST_BUFF_TOP_LEFT_Y), 
+      region=(TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X - TOP_LEFT_X, BOTTOM_RIGHT_Y - TOP_LEFT_Y), 
       grayscale=True, 
       confidence=0.8)
     
@@ -155,9 +174,11 @@ def AcceptPlayerInWaitingList():
 
 def DenyPlayerInWaitingList():
   try:
+    TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X , BOTTOM_RIGHT_Y = GetCoordinatesOfTheFirstPlayerInWaitingList()
+    
     denyEntryButton = pg.locateCenterOnScreen(
       "./images/deny-entry-button.png", 
-      region=(LIST_BUFF_TOP_LEFT_X, LIST_BUFF_TOP_LEFT_Y, LIST_BUFF_BOTTOM_RIGHT_X - LIST_BUFF_TOP_LEFT_X, LIST_BUFF_BOTTOM_RIGHT_Y - LIST_BUFF_TOP_LEFT_Y), 
+      region=(TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X - TOP_LEFT_X, BOTTOM_RIGHT_Y - TOP_LEFT_Y), 
       grayscale=True, 
       confidence=0.8)
         
@@ -256,3 +277,35 @@ def WriteLogInBannedPlayersFile(playerName: str):
 
   with open('./activityLogs/bannedPlayers.txt', 'a') as f:
     f.write(messageToWrite)
+
+#-------------------------------------------------------------
+
+def CloseModal():
+  try:
+    closeModal = pg.locateCenterOnScreen("./images/close-modal-button.png", grayscale=True, confidence=0.8)
+    pg.click(closeModal[0], closeModal[1])
+
+    time.sleep(GetRandomClickInterval())
+  except pg.ImageNotFoundException: 
+    print('Close modal button not found')
+
+#-------------------------------------------------------------
+
+def GetRandomClickInterval():
+    with open('./config.json') as config_file:
+      jsonConfig = json.load(config_file)
+
+      minInterval = int(jsonConfig['click_interval_in_second']['min'])
+      maxInterval = int(jsonConfig['click_interval_in_second']['max'])
+
+      return random.uniform(minInterval, maxInterval)
+
+#-------------------------------------------------------------
+
+def IsBlank (myString):
+    return not (myString and myString.strip())
+
+#-------------------------------------------------------------
+
+def GetPosition():
+  print(pg.position())
