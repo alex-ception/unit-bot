@@ -22,10 +22,28 @@ def CloseBuyKimPack():
 
 #-------------------------------------------------------------
 
+def GetLikedButton():
+  try:
+    return pg.locateCenterOnScreen("./images/liked-button.png", grayscale=True, confidence=0.8)
+  
+  except pg.ImageNotFoundException:
+    print('Liked button not found')
+
+#-------------------------------------------------------------
+
 def GoToProfile():
   pg.click(PROFILE_PICTURE_X, PROFILE_PICTURE_Y)
 
   time.sleep(GetRandomClickInterval())
+
+  likedButton = GetLikedButton()
+
+  if likedButton is not None:
+    # If profile liked, click on the liked button to close the modal
+    pg.click(likedButton[0], likedButton[1])
+
+    time.sleep(GetRandomClickInterval())
+
 
 #-------------------------------------------------------------
 
