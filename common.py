@@ -87,6 +87,8 @@ def GetCoordinatesOfTheFirstPlayerInWaitingList():
       grayscale=True, 
       confidence=0.8)
     
+    time.sleep(0.5)
+    
     TOP_LEFT_X = int(coords[0] - 150)
     TOP_LEFT_Y = int(coords[1] + 100)
     BOTTOM_RIGHT_X = int(coords[0] + 230)
@@ -105,7 +107,11 @@ def GetFirstPlayerNameInTheList():
 
     playerNameImage = pg.screenshot(region=(TOP_LEFT_X, TOP_LEFT_Y, (BOTTOM_RIGHT_X - 127) - TOP_LEFT_X, (BOTTOM_RIGHT_Y - 27) - TOP_LEFT_Y))
 
+    time.sleep(0.5)
+
     playerName = pytesseract.image_to_string(playerNameImage)
+
+    time.sleep(0.5)
 
     return playerName
   except: 
@@ -234,7 +240,11 @@ def CheckTimeInTheBuff():
 
       timeInTheBuffImage = pg.screenshot(region=(TIME_IN_THE_BUFF_TOP_LEFT_X, TIME_IN_THE_BUFF_TOP_LEFT_Y, TIME_IN_THE_BUFF_BOTTOM_RIGHT_X - TIME_IN_THE_BUFF_TOP_LEFT_X, TIME_IN_THE_BUFF_BOTTOM_RIGHT_Y - TIME_IN_THE_BUFF_TOP_LEFT_Y))
 
+      time.sleep(0.5)
+
       timeInTheBuffFullSentence = pytesseract.image_to_string(timeInTheBuffImage)
+
+      time.sleep(0.5)
 
       timeInTheBuffLastElement = timeInTheBuffFullSentence.split(' ')[3].replace(" ", "")
 
@@ -277,7 +287,7 @@ def ConfirmEjectPlayerFromBuff():
     confirmEjectPlayerFromBuffButton = pg.locateCenterOnScreen(
       "./images/confirm-eject-player-button.png",
       grayscale=True, 
-      confidence=0.6)
+      confidence=0.7)
     
     pg.click(confirmEjectPlayerFromBuffButton[0], confirmEjectPlayerFromBuffButton[1])
 
