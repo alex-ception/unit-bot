@@ -87,14 +87,17 @@ def GetCoordinatesOfTheFirstPlayerInWaitingList():
       grayscale=True, 
       confidence=0.8)
     
-    time.sleep(0.5)
-    
-    TOP_LEFT_X = int(coords[0] - 150)
-    TOP_LEFT_Y = int(coords[1] + 100)
-    BOTTOM_RIGHT_X = int(coords[0] + 230)
-    BOTTOM_RIGHT_Y = int(coords[1] + 160)
+    if coords is not None:
+      time.sleep(0.5)
+      
+      TOP_LEFT_X = int(coords[0] - 150)
+      TOP_LEFT_Y = int(coords[1] + 100)
+      BOTTOM_RIGHT_X = int(coords[0] + 230)
+      BOTTOM_RIGHT_Y = int(coords[1] + 160)
 
-    return [TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X, BOTTOM_RIGHT_Y]
+      return [TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X, BOTTOM_RIGHT_Y]
+    else:
+      return None
 
   except pg.ImageNotFoundException:
     print('Officer request image (main title) not found')
@@ -103,17 +106,19 @@ def GetCoordinatesOfTheFirstPlayerInWaitingList():
 
 def GetFirstPlayerNameInTheList():
   try:
-    TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X , BOTTOM_RIGHT_Y = GetCoordinatesOfTheFirstPlayerInWaitingList()
+    coords = GetCoordinatesOfTheFirstPlayerInWaitingList()
 
-    playerNameImage = pg.screenshot(region=(TOP_LEFT_X, TOP_LEFT_Y, (BOTTOM_RIGHT_X - 127) - TOP_LEFT_X, (BOTTOM_RIGHT_Y - 27) - TOP_LEFT_Y))
+    if coords is not None:
+      TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X , BOTTOM_RIGHT_Y = coords
 
-    time.sleep(0.5)
+      playerNameImage = pg.screenshot(region=(TOP_LEFT_X, TOP_LEFT_Y, (BOTTOM_RIGHT_X - 127) - TOP_LEFT_X, (BOTTOM_RIGHT_Y - 27) - TOP_LEFT_Y))
 
-    playerName = pytesseract.image_to_string(playerNameImage)
+      time.sleep(0.5)
 
-    time.sleep(0.5)
+      playerName = pytesseract.image_to_string(playerNameImage)
 
-    return playerName
+      return playerName
+    
   except: 
     print('Not able to get player name')
 
@@ -181,15 +186,18 @@ def isPlayerBanned(playerNameWithAlliance: str):
 
 def AcceptPlayerInWaitingList():
   try:
-    TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X , BOTTOM_RIGHT_Y = GetCoordinatesOfTheFirstPlayerInWaitingList()
+    coords = GetCoordinatesOfTheFirstPlayerInWaitingList()
 
-    accepteEntryButton = pg.locateCenterOnScreen(
-      "./images/accept-entry-button.png", 
-      region=(TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X - TOP_LEFT_X, BOTTOM_RIGHT_Y - TOP_LEFT_Y), 
-      grayscale=True, 
-      confidence=0.8)
-    
-    pg.click(accepteEntryButton[0], accepteEntryButton[1])
+    if coords is not None:
+      TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X , BOTTOM_RIGHT_Y = coords
+
+      accepteEntryButton = pg.locateCenterOnScreen(
+        "./images/accept-entry-button.png", 
+        region=(TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X - TOP_LEFT_X, BOTTOM_RIGHT_Y - TOP_LEFT_Y), 
+        grayscale=True, 
+        confidence=0.8)
+      
+      pg.click(accepteEntryButton[0], accepteEntryButton[1])
 
   except pg.ImageNotFoundException:
     print('Accept entry image not found')
@@ -198,19 +206,22 @@ def AcceptPlayerInWaitingList():
 
 def DenyPlayerInWaitingList():
   try:
-    TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X , BOTTOM_RIGHT_Y = GetCoordinatesOfTheFirstPlayerInWaitingList()
+    coords = GetCoordinatesOfTheFirstPlayerInWaitingList()
+
+    if coords is not None:
+      TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X , BOTTOM_RIGHT_Y = coords
     
-    denyEntryButton = pg.locateCenterOnScreen(
-      "./images/deny-entry-button.png", 
-      region=(TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X - TOP_LEFT_X, BOTTOM_RIGHT_Y - TOP_LEFT_Y), 
-      grayscale=True, 
-      confidence=0.8)
-        
-    pg.click(denyEntryButton[0], denyEntryButton[1])
+      denyEntryButton = pg.locateCenterOnScreen(
+        "./images/deny-entry-button.png", 
+        region=(TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X - TOP_LEFT_X, BOTTOM_RIGHT_Y - TOP_LEFT_Y), 
+        grayscale=True, 
+        confidence=0.8)
+          
+      pg.click(denyEntryButton[0], denyEntryButton[1])
 
-    time.sleep(GetRandomClickInterval())
+      time.sleep(GetRandomClickInterval())
 
-    ConfirmDenyPlayerInWaitingList()
+      ConfirmDenyPlayerInWaitingList()
 
   except pg.ImageNotFoundException:
     print('Deny entry image not found')
@@ -243,8 +254,6 @@ def CheckTimeInTheBuff():
       time.sleep(0.5)
 
       timeInTheBuffFullSentence = pytesseract.image_to_string(timeInTheBuffImage)
-
-      time.sleep(0.5)
 
       timeInTheBuffLastElement = timeInTheBuffFullSentence.split(' ')[3].replace(" ", "")
 

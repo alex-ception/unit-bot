@@ -3,7 +3,7 @@ import time
 
 #-------------------------------------------------------------
 
-def GetAntiBotModalTitle():
+def GetAntiBotModalLeaveGameButton():
   try:
     return pg.locateCenterOnScreen("./images/leave-game-button.png", grayscale=True, confidence=0.8)
    
@@ -24,8 +24,8 @@ def CloseAntiBotModal():
 
 def CheckAntiBotModal():
   while True:
-    antiBotModalTitle = GetAntiBotModalTitle()
+    leaveGameButton = GetAntiBotModalLeaveGameButton()
 
-    if antiBotModalTitle is not None:
+    if leaveGameButton is not None:
       print('Close anti bot modal !!!!!!!!!!!!!')
       CloseAntiBotModal()
