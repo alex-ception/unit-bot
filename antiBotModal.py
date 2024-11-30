@@ -5,7 +5,7 @@ import time
 
 def GetAntiBotModalTitle():
   try:
-    return pg.locateCenterOnScreen("./images/anti-bot-modal-title.png", grayscale=True, confidence=0.8)
+    return pg.locateCenterOnScreen("./images/leave-game-button.png", grayscale=True, confidence=0.8)
    
   except pg.ImageNotFoundException: 
     None
@@ -28,6 +28,4 @@ def CheckAntiBotModal():
 
     if antiBotModalTitle is not None:
       print('Close anti bot modal !!!!!!!!!!!!!')
-      time.sleep(0.5)
-      
       CloseAntiBotModal()
