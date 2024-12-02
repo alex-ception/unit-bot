@@ -341,8 +341,3 @@ def GetRandomClickInterval():
 
 def IsBlank (myString):
     return not (myString and myString.strip())
-
-#-------------------------------------------------------------
-
-def GetPosition():
-  print(pg.position())
