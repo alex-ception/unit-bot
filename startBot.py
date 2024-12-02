@@ -16,7 +16,10 @@ def StartBot():
 
 #-------------------------------------------------------------
 
-# Start 2 loops. 1 for main bot and 1 to close anti bot modal
+# Start 3 loops. 
+# 1 for main bot (StartBot)
+# 1 to close anti bot modal (CheckAndCloseAntiBotModal) 
+# 1 to comeback to the buffs section in case of reboot (CheckAndGoToTheBuffsPage)
 if __name__ == '__main__':
   Process(target=CheckAndCloseAntiBotModal).start()
   Process(target=CheckAndGoToTheBuffsPage).start()
