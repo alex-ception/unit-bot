@@ -1,5 +1,4 @@
 import pyautogui as pg
-import time
 
 #-------------------------------------------------------------
 
@@ -22,7 +21,7 @@ def CloseAntiBotModal():
 
 #-------------------------------------------------------------
 
-def CheckAntiBotModal():
+def CheckAndCloseAntiBotModal():
   while True:
     leaveGameButton = GetAntiBotModalLeaveGameButton()
 

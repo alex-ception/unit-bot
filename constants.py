@@ -1,7 +1,7 @@
 # List buffs coords
 
-PROFILE_PICTURE_X = 717 
-PROFILE_PICTURE_Y = 72 
+PROFILE_PICTURE_X = 724
+PROFILE_PICTURE_Y = 70
 
 #---------------------------------------------------
 STRATEGY_BUFF_CENTER_X = 939

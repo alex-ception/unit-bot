@@ -11,53 +11,6 @@ Secretary = Literal["strategy", "security", "development", "science", "interior"
 
 #-------------------------------------------------------------
 
-def CloseBuyKimPack():
-  try:
-    crossIcon = pg.locateCenterOnScreen("./images/close-buy-kim-pack.png", grayscale=True, confidence=0.6)
-    pg.click(crossIcon[0], crossIcon[1])
-
-    time.sleep(GetRandomClickInterval())
-  except pg.ImageNotFoundException:
-    print('Close kim pack (cross icon) not found')
-
-#-------------------------------------------------------------
-
-def GetLikedButton():
-  try:
-    return pg.locateCenterOnScreen("./images/liked-button.png", grayscale=True, confidence=0.8)
-  
-  except pg.ImageNotFoundException:
-    print('Liked button not found')
-
-#-------------------------------------------------------------
-
-def GoToProfile():
-  pg.click(PROFILE_PICTURE_X, PROFILE_PICTURE_Y)
-
-  time.sleep(GetRandomClickInterval())
-
-  likedButton = GetLikedButton()
-
-  if likedButton is not None:
-    # If profile liked, click on the liked button to close the modal
-    pg.click(likedButton[0], likedButton[1])
-
-    time.sleep(GetRandomClickInterval())
-
-
-#-------------------------------------------------------------
-
-def OpenCapitol():
-  try:
-    capitolIcon = pg.locateCenterOnScreen("./images/capitol-icon.png", grayscale=True, confidence=0.7)
-    pg.click(capitolIcon[0], capitolIcon[1])
-
-    time.sleep(GetRandomClickInterval())
-  except pg.ImageNotFoundException:
-    print('Open capitol image not found')
-
-#-------------------------------------------------------------
-
 def OpenSecretary(x, y):
   try:
     pg.moveTo(x, y)
