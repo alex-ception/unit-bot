@@ -3,7 +3,7 @@
 ## Requirements
 
 1. Set display resolution of your emulator (BlueStacks for example) to: **1280x720**
-2. Set the language game to **French** (because screenshots are in the french language. You can change the language if you update screenshots)
+2. Set the language game to **French**
 3. Works perfectly with Windows11 **BUT** if you use MacOS or Linux, the installation will be different, **watch out**
 
 ## Installations
