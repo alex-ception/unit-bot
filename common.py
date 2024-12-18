@@ -64,6 +64,13 @@ def GetFirstPlayerNameInTheList():
     if coords is not None:
       TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X , BOTTOM_RIGHT_Y = coords
 
+      # Scroll down to get the first player in the list (when there's to many people)
+      pg.mouseDown(coords[0], (coords[1] + 200), button='left', duration=0.5) 
+      pg.moveTo(coords[0], 6000, duration=0.5)
+      pg.mouseUp(button='left', duration=0.5)
+
+      time.sleep(GetRandomClickInterval())
+
       playerNameImage = pg.screenshot(region=(TOP_LEFT_X, TOP_LEFT_Y, (BOTTOM_RIGHT_X - 127) - TOP_LEFT_X, (BOTTOM_RIGHT_Y - 27) - TOP_LEFT_Y))
 
       time.sleep(0.5)
