@@ -176,7 +176,7 @@ def DenyPlayerInWaitingList():
         region=(TOP_LEFT_X, TOP_LEFT_Y, BOTTOM_RIGHT_X - TOP_LEFT_X, BOTTOM_RIGHT_Y - TOP_LEFT_Y), 
         grayscale=True, 
         confidence=0.8)
-          
+
       pg.click(denyEntryButton[0], denyEntryButton[1])
 
       time.sleep(GetRandomClickInterval())
@@ -193,7 +193,7 @@ def ConfirmDenyPlayerInWaitingList():
     confirmDenyPlayerInWaitingListButton = pg.locateCenterOnScreen(
       "./images/confirm-deny-entry-button.png",
       grayscale=True, 
-      confidence=0.6)
+      confidence=0.8)
     
     pg.click(confirmDenyPlayerInWaitingListButton[0], confirmDenyPlayerInWaitingListButton[1])
 
