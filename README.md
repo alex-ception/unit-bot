@@ -21,8 +21,8 @@
 
 In the **config.json** file, you can configure lots of things !
 
-1. (if you want to ban some alliances) You can set the alliance's name in **blacklist_alliances** (ex: CyS)
-2. (if you want to ban some players) You can give a nickname to some players as you want in Last war. Do it before set player's name in **blacklist_players** (ex: YolKal).
+1. (if you want to ban some alliances) You can set the alliance's name in **blacklist_alliances** (ex: "CyS")
+2. (if you want to ban some players) You can give a nickname to some players in game. Do it before set player's name in **blacklist_players** (ex: "BANYolKal").
 3. **max_time_player_has_buff_in_minute** you can kick a player with the bot after that the player has the buff until x minutes
 4. **click_interval_in_second** useful to have random interval between clicks to have a more human behaviour
 
