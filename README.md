@@ -2,9 +2,9 @@
 
 ## Requirements
 
-1. An account with a player level 16 at least (to get capitol buff). Do it with a fake account (possible ban).
-2. Set display resolution of your emulator (BlueStacks for example) to: **1280x720**
-3. Set the language game to **French**
+1. An account with a player level 16 at least (to get capitol buff). Do it with a 2nd account (possible ban).
+2. Set display resolution of windows screen **1920x1080** and your emulator (BlueStacks for example) to: **1280x720** vertically
+3. Set the language game to **French** (screenshots are in French)
 4. Works perfectly with Windows11 **BUT** if you use MacOS or Linux, the installation will be different, **watch out**
 
 ## Installations
@@ -17,17 +17,24 @@
    4. pip install pytesseract
 3. Now install **tesseract** on windows. More complicated so watch this video (https://www.youtube.com/watch?v=HNCypVfeTdw)
 
+## Global configuration
+
+In the **config.json** file, you can configure lots of things !
+
+1. (if you want to ban some alliances) You can set the alliance's name in **blacklist_alliances** (ex: CyS)
+2. (if you want to ban some players) You can give a nickname to some players as you want in Last war. Do it before set player's name in **blacklist_players** (ex: YolKal).
+3. **max_time_player_has_buff_in_minute** you can kick a player with the bot after that the player has the buff until x minutes
+4. **click_interval_in_second** useful to have random interval between clicks to have a more human behaviour
+
 ## Before Starting the bot
 
-1. (if you want to ban some alliance) You can set the alliance's name in **blacklist_alliances** in the **config.json** file (ex: CyS)
-2. (if you want to ban some player) You can give a nickname to some players as you want in Last war. Do it before set player's name in **blacklist_players** in the **in config.json** file (ex: YolKal).
-3. You should modify pixel positions variables into the **constants.py** file to perfectly fit with your window:
+1. You may have to modify pixel positions variables into the **constants.py** file to perfectly fit with your window:
    1. Set the emulator window as you want and don't change it anymore (or update variables again)
    2. type **python getPosition.py** in your terminal and move your mouse over the relevant area (you have 2 seconds to switch window et move your mouse). You'll be able to see in the terminal X position and Y position, then modify variables numbers.
    3. **PROFILE_PICTURE** is on the top left corner (little profile picture). Place your mouse in the center and modify variables.
    4. **STRATEGY BUFF, SECURITY BUFF, etc.** is all cards buffs in the buff page. Place your mouse in the center for each cards and modify variables.
    5. **TIME_IN_THE_BUFF...** place your mouse on the red crosses (see picture below) and modify variables. ![get time in the buff positions (tuto)](./images/time-in-the-buff-positions-tutorial.png)
-4. In game:
+2. In game:
    1. Click on your profile
    2. Click on #serverNumber (#477)
    3. Open capitole buffs interface
@@ -38,8 +45,16 @@
 
 1. Don't do anything while script is running.
 2. **To stop the script:** close your terminal or set your mouse on the corner of the screen (top right for example) for the **"fail-safe"**.
-3. Open new terminal or VSCode with administrator rights
+3. Open new terminal or VSCode with **administrator rights**
 4. Start the script: **python startBot.py**
+
+## What doing if it doesn't work ?
+
+It may happend that the script can't find images (ex: waiting-list-button not found).
+
+The resolution of Windows and/or the emulator may cause issues (even if the screen are zoomed or someting like that). It can't find the image because images are a bit bigger and smaller.
+
+The easiest way it to try to change Window and emulator resolution or to change screenshots by yourself. Be sure to keep the same name that before.
 
 ## How to update the bot ?
 
@@ -53,6 +68,10 @@ There's many ways to do that:
 ## Is it work perfectly ?
 
 No, the bot can make mistakes because it uses OCR techniques and these techniques are not 100% reliable (especially tesseract).
+
+Last war includes a system anti bot now to make bot and macro-clicker crazy. So I created CheckAndCloseAntiBotModal function that close the anti bot modal
+
+Watch out to game updates! You have to restart the game and the script.
 
 ## Limitations
 
