@@ -4,10 +4,10 @@ import pyautogui as pg
 
 def GetAntiBotModalLeaveGameButton():
   try:
-    return pg.locateCenterOnScreen("./images/leave-game-button.png", grayscale=True, confidence=0.8)
+    return pg.locateCenterOnScreen("./images/exit-game-button.png", grayscale=True, confidence=0.9)
    
   except pg.ImageNotFoundException: 
-    None
+    return None
 
 #-------------------------------------------------------------
 
@@ -17,7 +17,7 @@ def CloseAntiBotModal():
     pg.click(antiBotModalCloseButton[0], antiBotModalCloseButton[1])
 
   except pg.ImageNotFoundException: 
-    print('Anti bot modal close button not found')
+    print('Anti bot modal close button NOT FOUND')
 
 #-------------------------------------------------------------
 

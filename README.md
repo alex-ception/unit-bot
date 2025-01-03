@@ -3,8 +3,8 @@
 ## Requirements
 
 1. An account with a player level 16 at least (to get capitol buff). Do it with a 2nd account (possible ban).
-2. Set display resolution of windows screen **1920x1080** and your emulator (BlueStacks for example) to: **1280x720** vertically
-3. Set the language game to **French** (screenshots are in French)
+2. Set display resolution of windows screen **1920x1080** and your emulator (BlueStacks for example) to: **900x1600** vertically
+3. Set the language game to **English** (mandatory)
 4. Works perfectly with Windows11 **BUT** if you use MacOS or Linux, the installation will be different, **watch out**
 
 ## Installations
