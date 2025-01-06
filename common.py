@@ -242,6 +242,8 @@ def ConfirmDenyPlayerInWaitingList():
 
 def CheckTimeInTheBuff():
   try:
+    time.sleep(GetRandomClickInterval())
+
     with open('./config.json') as config_file:
       jsonConfig = json.load(config_file)
 
@@ -269,6 +271,8 @@ def CheckTimeInTheBuff():
 
 def EjectPlayerFromBuff():
   try:
+    time.sleep(GetRandomClickInterval())
+    
     ejectPlayerFromBuffButton = pg.locateCenterOnScreen(
       "./images/eject-player-from-buff.png",
       confidence=0.7)
