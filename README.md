@@ -1,4 +1,6 @@
-# BOT for Last War (do Vice-president)
+# [DEPRECATED] BOT for Last War (do Vice-president)
+
+(Last war updated vice president role so use the bot is pretty useless now)
 
 ## Requirements
 
